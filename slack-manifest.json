@@ -127,6 +127,13 @@
         "usage_hint": "[text | pause | resume | clear | status]"
       },
       {
+        "command": "/subgoal",
+        "description": "Add or manage extra criteria on the active goal",
+        "should_escape": false,
+        "url": "https://hermes-agent.local/slack/commands",
+        "usage_hint": "[text | remove N | clear]"
+      },
+      {
         "command": "/whoami",
         "description": "Show your slash command access (admin / user)",
         "should_escape": false,
@@ -163,6 +170,13 @@
         "should_escape": false,
         "url": "https://hermes-agent.local/slack/commands",
         "usage_hint": "[model] [--provider name] [--global]"
+      },
+      {
+        "command": "/codex-runtime",
+        "description": "Toggle codex app-server runtime for OpenAI/Codex models",
+        "should_escape": false,
+        "url": "https://hermes-agent.local/slack/commands",
+        "usage_hint": "[auto|codex_app_server]"
       },
       {
         "command": "/personality",
@@ -332,12 +346,6 @@
       {
         "command": "/reload_mcp",
         "description": "Alias for /reload-mcp — Reload MCP servers from config",
-        "should_escape": false,
-        "url": "https://hermes-agent.local/slack/commands"
-      },
-      {
-        "command": "/reload_skills",
-        "description": "Alias for /reload-skills — Re-scan ~/.hermes/skills/ for newly installed or removed skills",
         "should_escape": false,
         "url": "https://hermes-agent.local/slack/commands"
       }

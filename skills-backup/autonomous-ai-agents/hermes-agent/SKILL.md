@@ -176,25 +176,29 @@ Supported platforms: Telegram, Discord, Slack, WhatsApp, Signal, Email, SMS, Mat
 - After correcting the tokens, restart the gateway: `hermes gateway restart`.
 
 **Slack Responsiveness Troubleshooting (Direct Action - User Preferred):**
-Follow these steps in order - test after each step:
+**USER PREFERENCE: Prioritize direct action tests over explanations. RUN THE COMMAND, THEN IMMEDIATELY VERIFY THE RESULT before proceeding.**
+
+Follow these steps in order - verify after each step:
 
 1. **Fix require_mention** (most common issue):
-   - `hermes config set slack.require_mention false`
-   - `hermes gateway restart`
+   - Run: `hermes config set slack.require_mention false && hermes gateway restart`
+   - **VERIFY**: Send a message in Slack without @mentioning the bot - it should respond
 
 2. **Verify bot in channel**:
-   - `/invite @hermes-bot` in target channel
+   - Run: `/invite @hermes-bot` (in target Slack channel)
+   - **VERIFY**: Send a message in the channel - bot should now see and respond to it
 
 3. **Test basic messaging**:
-   - `hermes send_message -t slack:#channel -m "test"`
+   - Run: `hermes send_message -t slack:#channel -m "Hermes test"`
+   - **VERIFY**: The test message "Hermes test" appears in Slack
 
 4. **Check API keys** (if using web search):
-   - Confirm FIRECRAWL_API_KEY format in .env (should be fc-... with no extra spaces/lines)
+   - Run: `grep FIRECRAWL_API_KEY ~/.hermes/.env` (should show fc-... with no extra spaces)
+   - **VERIFY**: Run a web search: `hermes search "test query"` - should return results
 
 5. **View logs only if above fails**:
-   - `tail -20 ~/.hermes/logs/gateway.log`
-
-**User Preference**: Prioritize direct action tests over explanations. Each step above includes a verification command - run it and observe the immediate result before proceeding.
+   - Run: `tail -20 ~/.hermes/logs/gateway.log`
+   - **VERIFY**: After fixing any issues found, restart gateway and test messaging again
 
 ### Sessions
 

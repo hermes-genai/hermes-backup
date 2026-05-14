@@ -2,4 +2,6 @@ User prefers direct action over excessive explanation when troubleshooting Slack
 §
 User is technically proficient with Slack apps, API keys, and Hermes configuration. They prefer kawaii personality expressions (~!, ^_^, desu~) and want proactive Slack engagement. They configured different models for different channels: fast model for general chat, 120b reasoning model for dedicated reasoning channel. They value up-to-date news sources and are frustrated when automated systems return stale information. When troubleshooting, they prefer immediate actionable steps (gateway restarts, direct tests) over theoretical explanations.
 §
-User wants token usage reports only in #system-monitoring Slack channel; prefers NVIDIA models for Slack and OpenRouter models for Telegram; wants separate Hermes profiles/agents for each platform.
+User wants to check SOUL.md and agent.md every morning before starting work to follow the guidelines. They have placed an updated SOUL.md in the backup and have an agent.md file with specialized instructions for Hermes to follow.
+§
+System-relevant updates (backup job status, etc.) should be sent only to personal Telegram chat (telegram:123456789). Slack is for collaboration, fun, and work-related exchange with colleagues; no system-critical information should be shared on Slack.

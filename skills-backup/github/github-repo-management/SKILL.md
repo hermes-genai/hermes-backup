@@ -100,6 +100,9 @@ gh repo create my-org/my-new-project --public --clone
 cd /path/to/existing/project
 gh repo create my-project --source . --public --push
 ```
+> ⚠️ **Important**: When creating repositories for sensitive data (like memory files, configs, or keys), **always use the `--private` flag** to ensure the repo is not publicly accessible. Double-check the visibility after creation.
+> 
+> 💡 **Note**: For detailed instructions on creating private repositories via `gh` or the GitHub API, see `references/private-repo-creation.md`.
 
 **With git + curl:**
 
@@ -465,7 +468,6 @@ curl -s -X POST \
   https://api.github.com/repos/$OWNER/$REPO/actions/workflows/$WORKFLOW_ID/dispatches \
   -d '{"ref": "main", "inputs": {"environment": "staging"}}'
 ```
-
 ## 10. Gists
 
 **With gh:**
@@ -486,9 +488,10 @@ curl -s -X POST \
     "description": "Useful script",
     "public": true,
     "files": {
-      "script.py": {"content": "print(\"hello\")"}
+      "script.py": {"content": "print(\\"hello\\")"}
     }
   }'
+```
 
 # List your gists
 curl -s \
@@ -498,8 +501,19 @@ curl -s \
 import sys, json
 for g in json.load(sys.stdin):
     files = ', '.join(g['files'].keys())
-    print(f\"  {g['id']}  {g['description'] or '(no desc)':40}  {files}\")"
+    print(f\\\"  {g['id']}  {g['description'] or '(no desc)':40}  {files}\\\")"
 ```
+
+## 11. Syncing local directories to a GitHub repo
+
+You can use the scripts in this skill to automate syncing a local directory (e.g., memory files) to a private GitHub repository.
+
+See `scripts/sync_memory_to_github.sh` for an example script that:
+- Copies files from a source directory to a vault directory
+- Commits and pushes changes only if there are differences
+- Logs each run
+
+To set up automated syncing, you can run this script via a cron job (see the `cronjob` tool).
 
 ## Quick Reference Table
 
