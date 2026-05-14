@@ -1,0 +1,1 @@
+User prefers direct action over excessive explanation when troubleshooting Slack bot issues. They want gateway restarts and testing rather than lengthy background.

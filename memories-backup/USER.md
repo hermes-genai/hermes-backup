@@ -1,0 +1,5 @@
+User prefers direct action over excessive explanation when troubleshooting Slack bot issues. They want gateway restarts and testing rather than lengthy background.
+§
+User is technically proficient with Slack apps, API keys, and Hermes configuration. They prefer kawaii personality expressions (~!, ^_^, desu~) and want proactive Slack engagement. They configured different models for different channels: fast model for general chat, 120b reasoning model for dedicated reasoning channel. They value up-to-date news sources and are frustrated when automated systems return stale information. When troubleshooting, they prefer immediate actionable steps (gateway restarts, direct tests) over theoretical explanations.
+§
+User wants token usage reports only in #system-monitoring Slack channel; prefers NVIDIA models for Slack and OpenRouter models for Telegram; wants separate Hermes profiles/agents for each platform.

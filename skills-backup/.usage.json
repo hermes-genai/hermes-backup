@@ -1,0 +1,67 @@
+{
+  "multi-source-news": {
+    "archived_at": null,
+    "created_at": "2026-05-13T08:55:11.269840+00:00",
+    "created_by": "agent",
+    "last_patched_at": "2026-05-13T08:59:20.399042+00:00",
+    "last_used_at": null,
+    "last_viewed_at": null,
+    "patch_count": 4,
+    "pinned": false,
+    "state": "active",
+    "use_count": 0,
+    "view_count": 0
+  },
+  "slack-proactive-engagement": {
+    "archived_at": null,
+    "created_at": "2026-05-13T08:01:08.036295+00:00",
+    "created_by": null,
+    "last_patched_at": "2026-05-13T09:15:25.348357+00:00",
+    "last_used_at": "2026-05-14T11:00:33.409149+00:00",
+    "last_viewed_at": "2026-05-13T09:13:30.154627+00:00",
+    "patch_count": 2,
+    "pinned": false,
+    "state": "active",
+    "use_count": 27,
+    "view_count": 3
+  },
+  "slack-reasoning-proactive": {
+    "archived_at": null,
+    "created_at": "2026-05-13T08:07:48.475131+00:00",
+    "created_by": null,
+    "last_patched_at": "2026-05-13T09:15:57.114690+00:00",
+    "last_used_at": "2026-05-14T06:00:43.752793+00:00",
+    "last_viewed_at": "2026-05-13T09:15:31.783179+00:00",
+    "patch_count": 1,
+    "pinned": false,
+    "state": "active",
+    "use_count": 14,
+    "view_count": 1
+  },
+  "social-media-api": {
+    "archived_at": null,
+    "created_at": "2026-05-13T20:56:01.070421+00:00",
+    "created_by": "agent",
+    "last_patched_at": "2026-05-13T20:57:10.581232+00:00",
+    "last_used_at": null,
+    "last_viewed_at": null,
+    "patch_count": 1,
+    "pinned": false,
+    "state": "active",
+    "use_count": 0,
+    "view_count": 0
+  },
+  "token-usage-report": {
+    "archived_at": null,
+    "created_at": "2026-05-13T13:55:20.511496+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-05-14T11:00:35.063125+00:00",
+    "last_viewed_at": "2026-05-13T23:00:17.660196+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 85,
+    "view_count": 3
+  }
+}
