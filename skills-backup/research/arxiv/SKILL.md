@@ -1,7 +1,7 @@
 ---
 name: arxiv
 description: "Search arXiv papers by keyword, author, category, or ID."
-version: 1.0.0
+version: 1.1.0
 author: Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
@@ -156,6 +156,8 @@ web_extract(urls=["https://arxiv.org/pdf/2402.03300"])
 ```
 
 For local PDF processing, see the `ocr-and-documents` skill.
+
+See also `references/web_extract_workaround.md` for details on extracting arxiv PDFs when web_extract fails.
 
 ## Common Categories
 
