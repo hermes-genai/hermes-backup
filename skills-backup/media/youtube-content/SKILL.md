@@ -64,10 +64,6 @@ After fetching the transcript, format it based on what the user asks for:
 3. **Chunk if needed**: if the transcript exceeds ~50K characters, split into overlapping chunks (~40K with 2K overlap) and summarize each chunk before merging.
 4. **Transform** into the requested output format. If the user did not specify a format, default to a summary.
 5. **Verify**: re-read the transformed output to check for coherence, correct timestamps, and completeness before presenting.
+6. **Analyze**: When performing analysis on YouTube transcripts (summaries, explanations, questions, etc.), prefer to use the Gemini API via GEMINI_API_KEY in .env as specified by the user.
 
-## Error Handling
-
-- **Transcript disabled**: tell the user; suggest they check if subtitles are available on the video page.
-- **Private/unavailable video**: relay the error and ask the user to verify the URL.
-- **No matching language**: retry without `--language` to fetch any available transcript, then note the actual language to the user.
-- **Dependency missing**: run `pip install youtube-transcript-api` and retry.
+## Error Handling\\n\\n- **Transcript disabled**: tell the user; suggest they check if subtitles are available on the video page.\\n- **Private/unavailable video**: relay the error and ask the user to verify the URL.\\n- **No matching language**: retry without `--language` to fetch any available transcript, then note the actual language to the user.\\n- **Dependency missing**: run `pip install youtube-transcript-api` and retry.\\n- **Bot protection/IP blocking**: YouTube often blocks automated requests from cloud/IP ranges. When this happens:\\n  1. Try the fallback approach: use the `youtube-media-caption` skill which attempts alternative extraction methods\\n  2. If that fails, suggest the user manually copy/paste the transcript from YouTube's UI\\n  3. For recurring issues, consider using residential proxies or authenticated sessions\\n- **Workflow preference**: When generating summaries or analyses from YouTube transcripts, prefer to use the Gemini API (via GEMINI_API_KEY in .env) as specified by the user, rather than relying solely on internal processing.
