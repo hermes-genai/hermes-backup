@@ -1,7 +1,7 @@
 ---
 name: vault-sync
 description: "Synchronize Hermes vault (memories, config, plans, skills) to private GitHub repository."
-version: 1.0.0
+version: 1.0.1
 author: Hermes Agent
 license: MIT
 platforms:
@@ -55,10 +55,10 @@ mkdir -p "$(dirname "$LOG_FILE")"
     # Define what to sync (relative to SOURCE_BASE)
     declare -a ITEMS=(
         "SOUL.md"
-        "memories/"
+        "memories"
         "config.yaml"
-        "plans/"
-        "skills/"
+        "plans"
+        "skills"
     )
 
     # Ensure vault base exists
@@ -72,8 +72,17 @@ mkdir -p "$(dirname "$LOG_FILE")"
             mkdir -p "$(dirname "$dest")"
             if [[ -d "$src" ]]; then
                 # Use rsync to sync directory contents, preserving structure
+                # First, remove destination if it's a file (to allow directory sync)
+                if [[ -f "$dest" || -L "$dest" ]]; then
+                    rm -f "$dest"
+                fi
                 rsync -av --delete "$src/" "$dest/"
             else
+                # Copy file directly
+                # Remove destination if it's a directory (to allow file copy)
+                if [[ -d "$dest" ]]; then
+                    rm -rf "$dest"
+                fi
                 cp "$src" "$dest"
             fi
             echo "  Synced: $item"
@@ -101,7 +110,6 @@ mkdir -p "$(dirname "$LOG_FILE")"
         echo "[$(date -u +\"%Y-%m-%dT%H:%M:%SZ\")] No changes to sync."
     fi
 } >> "$LOG_FILE" 2>&1
-```
 
 ## Key Features
 
@@ -210,6 +218,11 @@ hermes cronjob create \
    - This handles file deletions in source (removes them from destination)
    - Preserves file permissions, timestamps, and symbolic links
 
+5. **Directory/File Conflict Errors**
+   - If you see errors like `cp: cannot create regular file '<path>/plans//': Not a directory`, it indicates a mismatch where the source is a directory but the destination exists as a file (or vice versa).
+   - The sync script now includes pre-sync checks to remove conflicting file types before syncing/copying (see lines 34-36 and 42-43 in `scripts/sync_vault.sh`).
+   - This issue was resolved in vault-sync skill version 1.0.1.
+
 ## Best Practices
 
 - **Regular Monitoring**: Check the sync log periodically to ensure backups are working
@@ -225,6 +238,11 @@ hermes cronjob create \
 - `github-auth`: For setting up GitHub authentication
 
 ## Change Log
+
+- **1.0.1**: Enhanced directory/file conflict resolution
+  - Added pre-sync checks to handle cases where source and destination
+    types mismatch (e.g., source is directory but destination exists as file)
+  - Now removes conflicting file types before syncing/copying
 
 - **1.0.0**: Initial release with rsync-based directory synchronization
   - Fixed directory handling issues that caused "Not a directory" errors

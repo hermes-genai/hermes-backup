@@ -14,10 +14,10 @@ mkdir -p "$(dirname "$LOG_FILE")"
     # Define what to sync (relative to SOURCE_BASE)
     declare -a ITEMS=(
         "SOUL.md"
-        "memories/"
+        "memories"
         "config.yaml"
-        "plans/"
-        "skills/"
+        "plans"
+        "skills"
     )
 
     # Ensure vault base exists
@@ -31,8 +31,17 @@ mkdir -p "$(dirname "$LOG_FILE")"
             mkdir -p "$(dirname "$dest")"
             if [[ -d "$src" ]]; then
                 # Use rsync to sync directory contents, preserving structure
+                # First, remove destination if it's a file (to allow directory sync)
+                if [[ -f "$dest" || -L "$dest" ]]; then
+                    rm -f "$dest"
+                fi
                 rsync -av --delete "$src/" "$dest/"
             else
+                # Copy file directly
+                # Remove destination if it's a directory (to allow file copy)
+                if [[ -d "$dest" ]]; then
+                    rm -rf "$dest"
+                fi
                 cp "$src" "$dest"
             fi
             echo "  Synced: $item"
