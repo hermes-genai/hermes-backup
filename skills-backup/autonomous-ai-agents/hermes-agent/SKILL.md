@@ -177,6 +177,7 @@ Supported platforms: Telegram, Discord, Slack, WhatsApp, Signal, Email, SMS, Mat
 
 **Slack Responsiveness Troubleshooting (Direct Action - User Preferred):**
 **USER PREFERENCE: Prioritize direct action tests over explanations. RUN THE COMMAND, THEN IMMEDIATELY VERIFY THE RESULT before proceeding.**
+**DO NOT send job confirmations or execution status to Slack after cronjob/delegated task completion. System-relevant updates (including backup job status, gateway restarts, etc.) should be sent only to personal Telegram chat, not Slack.**
 
 Follow these steps in order - verify after each step:
 

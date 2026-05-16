@@ -79,5 +79,7 @@ Follow these steps in order - test after each step:
 
 **User Preference**: Each step includes immediate verification commands. Stop and fix at the first step that fails - don't proceed to theoretical explanations until basic functionality works.
 
+**Important**: Do not send job confirmations or execution status to Slack after cronjob/delegated task completion. System-relevant updates (including backup job status, gateway restarts, etc.) should be sent only to personal Telegram chat, not Slack.
+
 ## Usage
 This skill is designed to be called periodically (e.g., via cronjob) or triggered manually when proactive engagement is desired.
