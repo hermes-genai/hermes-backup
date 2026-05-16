@@ -218,10 +218,7 @@ hermes cronjob create \
    - This handles file deletions in source (removes them from destination)
    - Preserves file permissions, timestamps, and symbolic links
 
-5. **Directory/File Conflict Errors**
-   - If you see errors like `cp: cannot create regular file '<path>/plans//': Not a directory`, it indicates a mismatch where the source is a directory but the destination exists as a file (or vice versa).
-   - The sync script now includes pre-sync checks to remove conflicting file types before syncing/copying (see lines 34-36 and 42-43 in `scripts/sync_vault.sh`).
-   - This issue was resolved in vault-sync skill version 1.0.1.
+5. **Directory/File Conflict Errors**\n   - If you see errors like `cp: cannot create regular file '<path>/plans//': Not a directory`, it indicates a mismatch where the source is a directory but the destination exists as a file (or vice versa).\n   - This was a known issue in earlier versions where the sync process didn't properly handle type mismatches between source and destination.\n   - The sync script now includes pre-sync checks to remove conflicting file types before syncing/copying (see lines 34-36 and 42-43 in `scripts/sync_vault.sh`).\n   - This issue was resolved in vault-sync skill version 1.0.1.\n   - Example of this error in logs: `cp: cannot create regular file '/home/hermes/.hermes/vault/plans//': Not a directory`
 
 ## Best Practices
 
@@ -236,6 +233,10 @@ hermes cronjob create \
 - `github-repo-management`: For advanced GitHub repository operations
 - `cronjob`: For scheduling automated synchronizations
 - `github-auth`: For setting up GitHub authentication
+
+## Reference Files
+
+- `references/sync-success-example.md`: Example of a successful vault sync log entry
 
 ## Change Log
 
