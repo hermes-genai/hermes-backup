@@ -1,7 +1,7 @@
 ---
 name: vault-sync
 description: "Synchronize Hermes vault (memories, config, plans, skills) to private GitHub repository."
-version: 1.0.1
+version: 1.0.2
 author: Hermes Agent
 license: MIT
 platforms:
@@ -68,21 +68,15 @@ mkdir -p "$(dirname "$LOG_FILE")"
         src="$SOURCE_BASE/$item"
         dest="$VAULT_BASE/$item"
         if [[ -e "$src" ]]; then
-            # Ensure destination directory exists
-            mkdir -p "$(dirname "$dest")"
+            # Remove destination completely to avoid type conflicts (file vs directory)
+            rm -rf "$dest"
             if [[ -d "$src" ]]; then
-                # Use rsync to sync directory contents, preserving structure
-                # First, remove destination if it's a file (to allow directory sync)
-                if [[ -f "$dest" || -L "$dest" ]]; then
-                    rm -f "$dest"
-                fi
+                # Source is directory: create dest directory and rsync contents
+                mkdir -p "$dest"
                 rsync -av --delete "$src/" "$dest/"
             else
-                # Copy file directly
-                # Remove destination if it's a directory (to allow file copy)
-                if [[ -d "$dest" ]]; then
-                    rm -rf "$dest"
-                fi
+                # Source is file: ensure dest directory exists and copy file
+                mkdir -p "$(dirname "$dest")"
                 cp "$src" "$dest"
             fi
             echo "  Synced: $item"
@@ -218,7 +212,12 @@ hermes cronjob create \
    - This handles file deletions in source (removes them from destination)
    - Preserves file permissions, timestamps, and symbolic links
 
-5. **Directory/File Conflict Errors**\n   - If you see errors like `cp: cannot create regular file '<path>/plans//': Not a directory`, it indicates a mismatch where the source is a directory but the destination exists as a file (or vice versa).\n   - This was a known issue in earlier versions where the sync process didn't properly handle type mismatches between source and destination.\n   - The sync script now includes pre-sync checks to remove conflicting file types before syncing/copying (see lines 34-36 and 42-43 in `scripts/sync_vault.sh`).\n   - This issue was resolved in vault-sync skill version 1.0.1.\n   - Example of this error in logs: `cp: cannot create regular file '/home/hermes/.hermes/vault/plans//': Not a directory`
+5. **Directory/File Conflict Resolution**
+   - The synchronization script now uses a robust approach to handle type mismatches between source and destination:
+     - Always removes the destination completely before syncing/copying
+     - Then recreates the appropriate structure based on source type (file vs directory)
+   - This prevents errors like `cp: cannot create regular file '<path>/plans//': Not a directory` that occurred in earlier versions when the destination existed as a conflicting type (e.g., a file when source was a directory, or vice versa)
+   - Example of resolved error: `cp: cannot create regular file '/home/hermes/.hermes/vault/plans//': Not a directory`
 
 ## Best Practices
 
@@ -239,6 +238,11 @@ hermes cronjob create \
 - `references/sync-success-example.md`: Example of a successful vault sync log entry
 
 ## Change Log
+
+- **1.0.2**: Improved directory/file conflict resolution
+  - Enhanced sync logic to always remove destination completely before syncing/copying
+  - Eliminates "Not a directory" errors by handling type mismatches robustly
+  - Uses explicit rm -rf followed by appropriate recreation based on source type
 
 - **1.0.1**: Enhanced directory/file conflict resolution
   - Added pre-sync checks to handle cases where source and destination

@@ -27,21 +27,15 @@ mkdir -p "$(dirname "$LOG_FILE")"
         src="$SOURCE_BASE/$item"
         dest="$VAULT_BASE/$item"
         if [[ -e "$src" ]]; then
-            # Ensure destination directory exists
-            mkdir -p "$(dirname "$dest")"
+            # Remove destination completely to avoid type conflicts (file vs directory)
+            rm -rf "$dest"
             if [[ -d "$src" ]]; then
-                # Use rsync to sync directory contents, preserving structure
-                # First, remove destination if it's a file (to allow directory sync)
-                if [[ -f "$dest" || -L "$dest" ]]; then
-                    rm -f "$dest"
-                fi
+                # Source is directory: create dest directory and rsync contents
+                mkdir -p "$dest"
                 rsync -av --delete "$src/" "$dest/"
             else
-                # Copy file directly
-                # Remove destination if it's a directory (to allow file copy)
-                if [[ -d "$dest" ]]; then
-                    rm -rf "$dest"
-                fi
+                # Source is file: ensure dest directory exists and copy file
+                mkdir -p "$(dirname "$dest")"
                 cp "$src" "$dest"
             fi
             echo "  Synced: $item"
