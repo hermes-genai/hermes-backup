@@ -24,6 +24,8 @@ Gmail, Calendar, Drive, Contacts, Sheets, and Docs — through Hermes-managed OA
 ## References
 
 - `references/gmail-search-syntax.md` — Gmail search operators (is:unread, from:, newer_than:, etc.)
+- `references/user-preference.md` — User preference: use google-workspace over himalaya for Gmail access (Markus has Google Workspace configured)
+- `references/arxiv-api-technique.md` — Technique: use arXiv API when web scraping fails due to authorization issues
 
 ## Scripts
 

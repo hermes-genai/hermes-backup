@@ -1,0 +1,1 @@
+For this user (Markus), prefer the google-workspace skill over himalaya for accessing Gmail, as they have Google Workspace configured and use it for email. This avoids unnecessary setup of IMAP/SMTP credentials.
